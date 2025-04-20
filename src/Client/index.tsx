@@ -35,15 +35,15 @@ const Client = () => {
                             <Table.Row>
                                 <Table.Cell textAlign={"left"} content={'Download #1'}/>
                                 <Table.Cell textAlign={"left"} content={
-                                    <a href={'https://mega.nz/file/ZvwVhB7b#z1rGg7XYKTaDgHd53JSrcZvT6QA_zryvVRyldDy_C9Y'}>
-                                        drx_setup-1.3.4-cl_win_prod.exe
+                                    <a href={'https://mega.nz/file/Vn5jVCIJ#RCOdDfjEZXSPPWP1s2TYYL6fGybRLSQHbkZTdohRLt0'}>
+                                        drx_setup-1.4.2-cl_win_prod
                                     </a>
                                 }/>
                             </Table.Row>
                             <Table.Row>
                                 <Table.Cell textAlign={"left"} content={'Sha256'}/>
                                 <Table.Cell textAlign={"left"} content={
-                                    'bb630e649c1e0af769e14163d670f2d3ef0f1bc71302baa8dc3ae84aaccde373'
+                                    '8953fbd49e7c6ea29f6eaf7a709edb4024bd36c3756b1657c53c1a383af35455'
                                 }/>
                             </Table.Row>
                         </Table.Body>
