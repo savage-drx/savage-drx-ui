@@ -20,7 +20,8 @@ export const ROUTES = {
     registration: "/auth/registration",
     confirmEmail: "/auth/email/confirm",
     registrationFinished: "/auth/registration/success",
-    accountSettings: "/account/settings"
+    accountSettings: "/account/settings",
+    setupServers: "/user/servers",
 }
 
 export const CLAN_ICON_URL = '/icons/drx/'

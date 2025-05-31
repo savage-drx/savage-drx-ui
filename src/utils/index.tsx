@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react"
 import {Link} from "react-router-dom"
 import {Icon, Image} from "semantic-ui-react"
 
-import {A2SPlayer, GameResult} from "../types"
+import {A2SPlayer, BearerToken, GameResult} from "../types"
 import {weekNumber} from 'weeknumber'
 import {
     CLAN_ICON_URL,
@@ -250,4 +250,8 @@ export const useWindowDimensions = () => {
 
 export const capitalizeFirstLetter = (s: string) => {
     return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+export const hasRole = (token: BearerToken, roleName: string) => {
+    return token?.roles?.includes(roleName);
 }

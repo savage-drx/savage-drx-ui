@@ -1,0 +1,62 @@
+.user-servers-wrapper {
+  width: 100%;
+
+  .user-server-info-table {
+
+    th {
+      background-color: #155b80 !important;
+    }
+
+    tr {
+      background-color: #202225;
+      color: #8a8e94;
+    }
+  }
+
+  .button-delete {
+    margin-left: 10px !important;;
+  }
+
+  .button-update {
+    margin-top: 10px !important;
+  }
+
+  .button-gen-password {
+    margin-left: 10px !important;
+  }
+
+  .button-cancel {
+    margin-left: 10px !important;
+  }
+
+  .form-server-update {
+    width: 80%;
+    margin: auto auto 50px;
+    //border: 1px solid yellow;
+
+    .field-size {
+      margin: auto !important;
+      //width: 50%;
+    }
+  }
+
+  .server-update-error {
+    padding-top: 20px;
+  }
+
+  .server-create-update-finished {
+    .text-block {
+      margin-top: 10px;
+      margin-bottom: 20px;
+      color: white;
+    }
+
+    .link-finished {
+      text-decoration: underline;
+
+      .icon {
+        text-decoration: none;
+      }
+    }
+  }
+}

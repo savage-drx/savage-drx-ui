@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from 'react'
 import {Button, Form, Icon, Message} from "semantic-ui-react";
 import {Link} from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha"
+import FingerprintJS from '@fingerprintjs/fingerprintjs'
 
 import {ROUTES} from "../utils/constants";
 import {sendRegistrationRequest} from "../requests";
@@ -33,11 +34,25 @@ const RegistrationForm = (props: RegistrationFormProps) => {
     const site_key = String(process.env.REACT_APP_CAPTCHA_SITE_KEY)
     const captchaRef = useRef<ReCAPTCHA>(null)
     const [captchaToken, setCaptchaToken] = useState<any>(null)
+    const [visitorId, setVisitorId] = useState<any>()
     const minPasswordLength = 8
 
     useEffect(() => {
-        setIsRegEnabled(regEmail && captchaToken && regPassword1 === regPassword2)
-    }, [regEmail, captchaToken, regPassword1, regPassword2]);
+        setIsRegEnabled(regEmail && captchaToken && visitorId && regPassword1 === regPassword2)
+    }, [regEmail, captchaToken, regPassword1, regPassword2, visitorId]);
+
+    useEffect(() => {
+        if (captchaToken != null) {
+            FingerprintJS.load()
+                .then(fp => fp.get())
+                .then(result => {
+                    setVisitorId(result.visitorId)
+                })
+        } else {
+            setVisitorId(undefined)
+        }
+    }, [captchaToken])
+
 
     const register = () => {
         if (isRegEnabled) {
@@ -45,7 +60,8 @@ const RegistrationForm = (props: RegistrationFormProps) => {
                 userName: regEmail,
                 password: regPassword1,
                 displayName: props.displayName,
-                token: captchaToken
+                token: captchaToken,
+                visitorId: visitorId
             }
             sendRegistrationRequest(registrationProps).then(res => {
                 setShowEmailConfirmationForm(true)
@@ -59,9 +75,13 @@ const RegistrationForm = (props: RegistrationFormProps) => {
 
     const processError = (error: any) => {
         setShowError(true)
-        setErrorMessage(isString(error?.response?.data?.messages[0]) ? error?.response?.data?.messages[0] : '')
+        let errorMessage
+        if (error?.response?.data?.messages?.length > 0) {
+            errorMessage = error.response.data.messages[0]
+        }
+        setErrorMessage(isString(errorMessage) ? errorMessage : '')
         setErrorCode(error?.response?.status)
-        setErrorStatusText(error?.response?.statusText)
+        setErrorStatusText(error?.response?.data?.error)
     }
 
     const resetErrorNotification = () => {

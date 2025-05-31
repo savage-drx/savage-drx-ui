@@ -3,6 +3,7 @@ import {useHistory} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {Button, Form, Message} from "semantic-ui-react";
 import ReCAPTCHA from "react-google-recaptcha";
+import FingerprintJS from '@fingerprintjs/fingerprintjs'
 
 import BaseContainer from "../HomePage/BaseContainer";
 import {LoginProps, OAuthResponse} from "../types";
@@ -31,22 +32,45 @@ const Login = () => {
     const site_key = String(process.env.REACT_APP_CAPTCHA_SITE_KEY)
     const captchaRef = useRef<ReCAPTCHA>(null)
     const [captchaToken, setCaptchaToken] = useState<any>(null)
+    const [visitorId, setVisitorId] = useState<any>()
 
     const logIn = () => {
-        if (email && password && captchaToken) {
-            const loginProps: LoginProps = {username: email, password: password, token: captchaToken}
+        if (email && password && captchaToken && visitorId) {
+            const loginProps: LoginProps = {
+                username: email,
+                password: password,
+                token: captchaToken,
+                visitorId: visitorId
+            }
+
             sendLoginRequest(loginProps).then(res => {
                 setAuthResponse(res.data)
             }).catch(error => {
                 captchaRef?.current?.reset()
                 setCaptchaToken(null)
                 setShowError(true)
-                setErrorMessage(isString(error?.response?.data?.detail) ? error?.response?.data?.detail : '')
+                let errorMessage
+                if (error?.response?.data?.messages?.length > 0) {
+                    errorMessage = error.response.data.messages[0]
+                }
+                setErrorMessage(isString(errorMessage) ? errorMessage : '')
                 setErrorCode(error?.response?.status)
-                setErrorStatusText(error?.response?.statusText)
+                setErrorStatusText(error?.response?.data?.error)
             })
         }
     }
+
+    useEffect(() => {
+        if (captchaToken != null) {
+            FingerprintJS.load()
+                .then(fp => fp.get())
+                .then(result => {
+                    setVisitorId(result.visitorId)
+                })
+        } else {
+            setVisitorId(undefined)
+        }
+    }, [captchaToken])
 
     useEffect(() => {
         if (updateAuthStateOnLogin(dispatch, authResponse)) {

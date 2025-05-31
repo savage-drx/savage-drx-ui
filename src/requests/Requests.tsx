@@ -1,5 +1,12 @@
 import axios from 'axios'
-import {EmailConfirmationProps, EmailTokenRenewProps, LoginProps, RegistrationProps} from "../types";
+import {
+    CreateUpdateServer,
+    EmailConfirmationProps,
+    EmailTokenRenewProps,
+    LoginProps,
+    RegistrationProps
+} from "../types";
+import {LOCAL_STORAGE_TOKEN} from "../utils/constants";
 
 const SERVER_URL = process.env.REACT_APP_API_URL
 const J_SERVER = `${SERVER_URL}/metaserver`
@@ -73,7 +80,8 @@ export const sendLoginRequest = (loginProps: LoginProps) => {
                 password: loginProps.password
             },
             headers: {
-                'X-Token': loginProps.token
+                'X-Token': loginProps.token,
+                'V-Token': loginProps.visitorId
             }
         })
 }
@@ -85,7 +93,8 @@ export const sendRegistrationRequest = (props: RegistrationProps) => {
         'password': props.password
     }, {
         headers: {
-            'X-Token': props.token
+            'X-Token': props.token,
+            'V-Token': props.visitorId
         }
     })
 }
@@ -116,12 +125,42 @@ export const sendRenewEmailRequest = (props: EmailTokenRenewProps) => {
         })
 }
 
+export const getMyServers = () => {
+    const cred = localStorage.getItem(LOCAL_STORAGE_TOKEN)
+    const config = {
+        headers: {Authorization: `Bearer ${cred}`}
+    }
+    return axios.get(`${J_SERVER}/v1/server/list/my`, config)
+}
 
-// test-data
-// export const getUserByIdRequest = (headers: any, userId: number) => {
-//     return axios.get(`${J_SERVER}/v1/user/by-id`,
-//         {
-//             params: {user_id: userId},
-//             headers: headers
-//         })
-// }
+export const createMyServer = (data: CreateUpdateServer) => {
+    const cred = localStorage.getItem(LOCAL_STORAGE_TOKEN)
+    const config = {
+        headers: {Authorization: `Bearer ${cred}`}
+    }
+    return axios.post(`${J_SERVER}/v1/server/register`, data, config)
+}
+
+export const updateMyServer = (serverId: number, data: CreateUpdateServer) => {
+    const cred = localStorage.getItem(LOCAL_STORAGE_TOKEN)
+    const config = {
+        headers: {Authorization: `Bearer ${cred}`}
+    }
+    return axios.post(`${J_SERVER}/v1/server/${serverId}/update`, data, config)
+}
+
+export const serverGenerateNewCredentials = (serverId: number) => {
+    const cred = localStorage.getItem(LOCAL_STORAGE_TOKEN)
+    const config = {
+        headers: {Authorization: `Bearer ${cred}`}
+    }
+    return axios.get(`${J_SERVER}/v1/server/${serverId}/generate-new-credentials`, config)
+}
+
+export const deleteMyServer = (serverId: number) => {
+    const cred = localStorage.getItem(LOCAL_STORAGE_TOKEN)
+    const config = {
+        headers: {Authorization: `Bearer ${cred}`}
+    }
+    return axios.delete(`${J_SERVER}/v1/server/${serverId}`, config)
+}

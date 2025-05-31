@@ -9,20 +9,34 @@ export const updateAuthState = (dispatch: any, auth: AuthState) => {
         const cred = localStorage.getItem(LOCAL_STORAGE_TOKEN)
         if (cred) {
             const token: BearerToken = jwt(cred)
-            dispatch({
-                type: 'UPDATE_AUTH', payload:
-                    {
-                        isLoggedIn: true,
-                        token: token
-                    }
-            });
+            const currentTimestamp = Math.floor(Date.now() / 1000)
+
+            // compare and reset token if needed
+            if (currentTimestamp > token.exp) {
+                localStorage.removeItem(LOCAL_STORAGE_TOKEN)
+                dispatch({
+                    type: 'UPDATE_AUTH', payload:
+                        {
+                            isLoggedIn: false,
+                            token: token
+                        }
+                });
+            } else {
+                dispatch({
+                    type: 'UPDATE_AUTH', payload:
+                        {
+                            isLoggedIn: true,
+                            token: token
+                        }
+                });
+            }
         }
     }
 }
 
 export const updateAuthStateOnLogin = (dispatch: any, authResponse: OAuthResponse | undefined) => {
     if (authResponse) {
-        const json_cred = JSON.stringify(authResponse.accessToken)
+        const json_cred = authResponse.accessToken
         if (json_cred) {
             localStorage.setItem(LOCAL_STORAGE_TOKEN, json_cred);
             const token: BearerToken = jwt(json_cred)

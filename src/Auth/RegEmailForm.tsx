@@ -36,9 +36,13 @@ const RegEmailForm = ({props}: { props?: RegEmailFormProps | null }) => {
 
     const processError = (error: any) => {
         setShowError(true)
-        setErrorMessage(isString(error?.response?.data?.detail) ? error?.response?.data?.detail : '')
+        let errorMessage
+        if (error?.response?.data?.messages?.length > 0) {
+            errorMessage = error.response.data.messages[0]
+        }
+        setErrorMessage(isString(errorMessage) ? errorMessage : '')
         setErrorCode(error?.response?.status)
-        setErrorStatusText(error?.response?.statusText)
+        setErrorStatusText(error?.response?.data?.error)
     }
 
     const confirmEmail = () => {

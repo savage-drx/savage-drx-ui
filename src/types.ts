@@ -453,14 +453,16 @@ export interface SortedA2SPlayers {
 export interface LoginProps {
     username: string
     password: string
-    token: string
+    token: string,
+    visitorId: string
 }
 
 export interface RegistrationProps {
     userName: string
     password: string
     displayName: string
-    token: string
+    token: string,
+    visitorId: string
 }
 
 export interface Credentials {
@@ -484,6 +486,7 @@ export interface BaseContainerProps {
 }
 
 export interface BearerToken {
+    roles: Array<string>
     aud: string
     exp: number
     iat: number
@@ -522,4 +525,36 @@ export interface RegEmailFormProps {
 
 export interface RegistrationFormProps {
     displayName: string
+}
+
+export interface UserServer {
+    id: number,
+    current_map: string
+    current_player_count: string,
+    description: string,
+    display_name: string,
+    game_type: string,
+    host_name: string,
+    max_player_count: number,
+    port: number
+    updated: string
+}
+
+export interface CreateUpdateServer {
+    description: string,
+    display_name: string,
+    game_type: string,
+    host_name: string,
+    max_player_count: number,
+    port: number
+}
+
+export interface UserServersList {
+    servers_limit: number,
+    servers: Array<UserServer>
+}
+
+export interface ServerCredentials {
+    username: number,
+    password: string
 }

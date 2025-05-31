@@ -8,6 +8,7 @@ import {Dropdown, Icon, Menu, Sticky} from 'semantic-ui-react'
 import {ROUTES} from "../utils/constants";
 
 import './scss/styles-navigation.scss';
+import {hasRole} from "../utils";
 
 
 const Navigation = () => {
@@ -159,6 +160,18 @@ const Navigation = () => {
                             icon={'cog'}
                             text={'Settings'}
                         />
+                        {
+                            hasRole(auth.token, 'CAN_MANAGE_SERVER')
+                                ? <Dropdown.Item
+                                    hidden={true}
+                                    key={'accountServers'}
+                                    icon={'server'}
+                                    text={'Your servers'}
+                                    as={Link}
+                                    to={ROUTES.setupServers}
+                                />
+                                : null
+                        }
                         <Dropdown.Item icon={'sign-out'} text={'Log out'} onClick={() => {
                             logOut(dispatch, history)
                         }}/>

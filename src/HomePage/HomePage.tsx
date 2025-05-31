@@ -4,6 +4,7 @@ import {shallowEqual, useDispatch, useSelector} from "react-redux"
 import {Container, Grid, Pagination, Segment} from "semantic-ui-react"
 
 import Account from "../Account/Account";
+import SetupServer from "../Account/SetupServer";
 import Discord from "../Discord"
 import Login from "../Auth/Login";
 import Patreon from '../Patreon'
@@ -38,6 +39,7 @@ const HomePage = () => {
     const isEmailConfirmationPath = Boolean(useRouteMatch(ROUTES.confirmEmail)?.isExact)
     const isRegistrationFinishedPath = Boolean(useRouteMatch(ROUTES.registrationFinished)?.isExact)
     const isAccountSettingsPath = Boolean(useRouteMatch(ROUTES.accountSettings)?.isExact)
+    const isSetupServersPath = Boolean(useRouteMatch(ROUTES.setupServers)?.isExact)
 
     useEffect(() => {
         if (isHomePath || page > 1) {
@@ -118,11 +120,12 @@ const HomePage = () => {
                                     {isEmailConfirmationPath ? <Registration/> : null}
                                     {isRegistrationFinishedPath ? <Registration/> : null}
                                     {isAccountSettingsPath ? <Account/> : null}
+                                    {isSetupServersPath ? <SetupServer/> : null}
                                 </Container>
                             </Grid.Column>
                             <Grid.Column>
                                 <Container className={'base'}>
-                                    <LivePanel background={'/images/beast_unit_predator.jpg'} serverProp={params?.server}/>
+                                    {/*<LivePanel background={'/images/beast_unit_predator.jpg'} serverProp={params?.server}/>*/}
                                 </Container>
                             </Grid.Column>
                         </Grid>

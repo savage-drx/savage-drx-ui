@@ -31,8 +31,8 @@ const Discord = () => {
                 backgroundImage: `url(${process.env.PUBLIC_URL + '/images/discord-background.png'})`
             }}>
                 <List>
-                    {discordServerInfo?.members.map((member) => (
-                        <div key={member.username}>
+                    {discordServerInfo?.members.map((member, index) => (
+                        <div key={member.username + index}>
                             <Image src={member.avatar_url}
                                    size={"small"}
                                    inline/>

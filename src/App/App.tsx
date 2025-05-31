@@ -54,6 +54,7 @@ const App = () => {
             <Route exact path={ROUTES.client} component={Client}/>
             <Route exact path={ROUTES.about} component={About}/>
             <Route exact path={ROUTES.accountSettings} component={HomePage}/>
+            <Route exact path={ROUTES.setupServers} component={HomePage}/>
         </Switch>
     </div>
 }

@@ -23,6 +23,8 @@ const RegDisplayNameForm = ({response}: { response: DisplayNameResponse | null }
     const [errorCode, setErrorCode] = useState(0)
     const [errorStatusText, setErrorStatusText] = useState("")
 
+    const displayNameRegex = /^[a-z0-9 -]{1,32}$/i;
+
     const confirmDisplayName = () => {
         if (displayName) {
             sendCheckDisplayName(displayName).then(res => {
@@ -66,10 +68,12 @@ const RegDisplayNameForm = ({response}: { response: DisplayNameResponse | null }
                             placeholder='Nick'
                             required width={8} className={'field-size'}
                             onChange={(e, {name, value}) => {
-                                resetErrorNotification()
-                                setDisplayName(value)
-                                setDisplayNameResponse(null)
-                                setCheckDisplayNameDisabled(false)
+                                if (displayNameRegex.test(value)) {
+                                    resetErrorNotification()
+                                    setDisplayName(value)
+                                    setDisplayNameResponse(null)
+                                    setCheckDisplayNameDisabled(false)
+                                }
                             }}
                             icon={displayNameResponse
                                 ? displayNameResponse.is_available

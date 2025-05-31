@@ -31,7 +31,8 @@
     "shortid": "^2.2.16",
     "typescript": "^4.4.3",
     "web-vitals": "^1.1.0",
-    "weeknumber": "^1.2.1"
+    "weeknumber": "^1.2.1",
+    "@fingerprintjs/fingerprintjs": "^4.6.2"
   },
   "scripts": {
     "start": "craco start",
@@ -76,7 +77,7 @@
     "1": "https://create-react-app.dev/docs/proxying-api-requests-in-development/",
     "2": "Proxying API Requests in Development",
     "3": "REACT_APP_API_URL must have empty value (in .env)",
-    "proxy": "https://api.community-server.info"
+    "proxy": "https://api.savagedrx.com"
   },
-  "proxy": "https://api.community-server.info"
+  "proxy": "https://api.savagedrx.com"
 }
