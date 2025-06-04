@@ -125,7 +125,7 @@ const HomePage = () => {
                             </Grid.Column>
                             <Grid.Column>
                                 <Container className={'base'}>
-                                    {/*<LivePanel background={'/images/beast_unit_predator.jpg'} serverProp={params?.server}/>*/}
+                                    <LivePanel background={'/images/beast_unit_predator.jpg'} serverProp={params?.server}/>
                                 </Container>
                             </Grid.Column>
                         </Grid>
