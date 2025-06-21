@@ -264,19 +264,19 @@ export const convertHourlyTSCodeToDateTime = (code: string) => {
     const day = parseInt(code.slice(6, 8));
     const hour = parseInt(code.slice(8, 10));
 
-    // This is required to reset timestamp code back to UTC first
-    const dbOffsetMinutes = DateTime.now().setZone('Europe/Kyiv').offset;
-
     const simpleDate = new Date(year, month, day, hour, 0, 0);
-    simpleDate.setHours(simpleDate.getHours() + dbOffsetMinutes / 60);
+    simpleDate.setHours(simpleDate.getHours() + (isDST() ? 3 : 2));
 
-    // const date1 = moment(code.slice(0, -2), "YYYYMMDDHH", "Europe/Kyiv");
-    // const date2 = moment(code.slice(0, -2), "YYYYMMDDHH", "Europe/London");
-
-    const now = new Date()
-    const timezoneOffset = now.getTimezoneOffset() * 60 * 1000;
-    return simpleDate.getTime() - timezoneOffset;
+    const now = DateTime.now();
+    const timezoneOffset = now.offset * 60 * 1000;
+    return simpleDate.getTime() + timezoneOffset;
 }
+
+export const isDST = () => {
+    const now = DateTime.now().setZone("Europe/Kyiv");
+    return now.isInDST;
+}
+
 
 export const convertDailyTSCodeToDateTime = (code: string) => {
     const year = parseInt(code.slice(0, 4));
