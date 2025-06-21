@@ -36,7 +36,7 @@ export const YearlyChart = () => {
             setActivity(cache.data)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    });
+    }, []);
 
     useEffect(() => {
         if (activity) {
@@ -56,6 +56,7 @@ export const YearlyChart = () => {
 
             setChartData(result);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activity]);
 
     const options = {

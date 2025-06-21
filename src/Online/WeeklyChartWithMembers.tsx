@@ -42,7 +42,7 @@ export const WeeklyChartWithMembers = () => {
             setActivity(cache.data)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    });
+    }, []);
 
     useEffect(() => {
         if (activity) {
@@ -66,6 +66,7 @@ export const WeeklyChartWithMembers = () => {
 
             setChartData(result);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activity]);
 
     const options = {
@@ -130,7 +131,7 @@ export const WeeklyChartWithMembers = () => {
     };
 
     const getMembers = () => {
-        if (activity?.activities?.length == 0) {
+        if (activity?.activities?.length === 0) {
             return null;
         }
 
@@ -141,7 +142,7 @@ export const WeeklyChartWithMembers = () => {
                     <Label as='a' image href={'/player/' + p.userId} key={"weekly-" + index}>
                         {
                             p.clanId
-                                ? <img src={CLAN_ICON_URL + p.clanId + '.png'}/>
+                                ? <img src={CLAN_ICON_URL + p.clanId + '.png'} alt={''}/>
                                 : null
                         }
                         {

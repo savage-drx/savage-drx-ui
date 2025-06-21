@@ -9,7 +9,6 @@ import Server from '../Server'
 import Client from '../Client'
 import About from '../About'
 import HomePage from "../HomePage/HomePage";
-import {HistoricalOnline} from "../Online"
 import {GameHistoryStats, GamesHistory} from "../GamesHistory"
 import {Ladder, LadderHomePage} from "../Ladder"
 import {updateAuthState} from "../utils/auth";

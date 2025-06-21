@@ -37,7 +37,7 @@ export const DailyChartWithMembers = () => {
             setActivity(cache.data)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    });
+    }, []);
 
     useEffect(() => {
         if (activity) {
@@ -61,6 +61,7 @@ export const DailyChartWithMembers = () => {
 
             setChartData(result);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activity]);
 
     const options = {
@@ -125,7 +126,7 @@ export const DailyChartWithMembers = () => {
     };
 
     const getMembers = () => {
-        if (activity?.activities?.length == 0) {
+        if (activity?.activities?.length === 0) {
             return null;
         }
 
@@ -136,7 +137,7 @@ export const DailyChartWithMembers = () => {
                     <Label as='a' image href={'/player/' + p.userId} key={"daily-" + index}>
                         {
                             p.clanId
-                                ? <img src={CLAN_ICON_URL + p.clanId + '.png'}/>
+                                ? <img src={CLAN_ICON_URL + p.clanId + '.png'} alt={''}/>
                                 : null
                         }
                         {
