@@ -5,12 +5,7 @@ import HighchartsReact from "highcharts-react-official";
 
 import {getOnline} from "../requests";
 import {Segment} from "semantic-ui-react";
-import {
-    convertMonthlyTSCodeToDateTime,
-    getCurrentTimeSeconds,
-    getMyTimeZone,
-    isCacheOutdated
-} from "../utils";
+import {convertMonthlyTSCodeToDateTime, getCurrentTimeSeconds, getMyTimeZone, isCacheOutdated} from "../utils";
 import {YEARLY_CHART_TTL_SECONDS} from "../utils/constants";
 import {Activity} from "../types";
 
@@ -40,6 +35,7 @@ export const YearlyChart = () => {
         } else {
             setActivity(cache.data)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     });
 
     useEffect(() => {
