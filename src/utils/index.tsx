@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react"
 import {Link} from "react-router-dom"
 import {Icon, Image} from "semantic-ui-react"
+import {DateTime} from "luxon";
+
 
 import {A2SPlayer, BearerToken, GameResult} from "../types"
 import {weekNumber} from 'weeknumber'
@@ -254,4 +256,50 @@ export const capitalizeFirstLetter = (s: string) => {
 
 export const hasRole = (token: BearerToken, roleName: string) => {
     return token?.roles?.includes(roleName);
+}
+
+export const convertHourlyTSCodeToDateTime = (code: string) => {
+    const year = parseInt(code.slice(0, 4));
+    const month = parseInt(code.slice(4, 6)) - 1;
+    const day = parseInt(code.slice(6, 8));
+    const hour = parseInt(code.slice(8, 10));
+
+    // This is required to reset timestamp code back to UTC first
+    const dbOffsetMinutes = DateTime.now().setZone('Europe/Kyiv').offset;
+
+    const simpleDate = new Date(year, month, day, hour, 0, 0);
+    simpleDate.setHours(simpleDate.getHours() + dbOffsetMinutes / 60);
+
+    // const date1 = moment(code.slice(0, -2), "YYYYMMDDHH", "Europe/Kyiv");
+    // const date2 = moment(code.slice(0, -2), "YYYYMMDDHH", "Europe/London");
+
+    const now = new Date()
+    const timezoneOffset = now.getTimezoneOffset() * 60 * 1000;
+    return simpleDate.getTime() - timezoneOffset;
+}
+
+export const convertDailyTSCodeToDateTime = (code: string) => {
+    const year = parseInt(code.slice(0, 4));
+    const month = parseInt(code.slice(4, 6)) - 1;
+    const day = parseInt(code.slice(6, 8));
+
+    const simpleDate = new Date(year, month, day, 0, 0, 0);
+
+    return simpleDate.getTime();
+}
+
+export const convertMonthlyTSCodeToDateTime = (code: string) => {
+    const year = parseInt(code.slice(0, 4));
+    const month = parseInt(code.slice(4, 6)) - 1;
+
+    const simpleDate = new Date(year, month, 0, 0, 0, 0);
+
+    return simpleDate.getTime();
+}
+
+export const getMyTimeZone = () => {
+    const dt = DateTime.local();
+    const zoneName = dt.zoneName;
+    const offsetHours = dt.offset / 60;
+    return `${zoneName}, UTC${offsetHours >= 0 ? '+' : ''}${offsetHours}`;
 }

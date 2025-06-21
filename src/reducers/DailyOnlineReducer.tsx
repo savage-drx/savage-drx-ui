@@ -1,16 +1,9 @@
-import {DailySnapshot} from "../types";
+import {Activity} from "../types";
 
 const initialState = {
-    nl: {
-        timestamp: 0,
-        ttl: 0,
-        data: Array<DailySnapshot>(),
-    },
-    us: {
-        timestamp: 0,
-        ttl: 0,
-        data: Array<DailySnapshot>(),
-    },
+    timestamp: 0,
+    ttl: 0,
+    data: {} as Activity
 }
 
 export const dailyOnlineReducer = (state = initialState, action: any) => {

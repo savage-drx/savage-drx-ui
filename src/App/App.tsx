@@ -39,7 +39,7 @@ const App = () => {
             <Route exact path={ROUTES.confirmEmail} component={HomePage}/>
             <Route exact path={ROUTES.registrationFinished} component={HomePage}/>
             <Route exact path={ROUTES.server} component={HomePage}/>
-            <Route exact path={ROUTES.online} component={HistoricalOnline}/>
+            <Route exact path={ROUTES.online} component={HomePage}/>
             <Route exact path={ROUTES.history} component={GamesHistory}/>
             <Route exact path={ROUTES.historyTimestampTab} component={GameHistoryStats}/>
             <Route exact path={ROUTES.ladder} component={LadderHomePage}/>

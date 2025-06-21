@@ -63,63 +63,34 @@ export interface LiveProps {
     serverProp: string
 }
 
-export interface WeeklyChartInfo {
-    server: string;
-}
-
-export interface DailyChartInfo {
-    server: string;
-}
-
 export interface WeeklySnapshot {
     timestamp: number;
     online: number;
 }
 
-export interface DailySnapshot {
-    game_state: number;
-    game_time: number;
-    map_name: string;
-    online: number;
-    server_name: string;
-    teams: {
-        0: DSTeam;
-        1: DSTeam;
-        2: DSTeam;
-        3?: DSTeam;
-        4?: DSTeam;
-    },
+export interface YearlySnapshot {
     timestamp: number;
+    online: number;
 }
 
-export interface DSPlayer {
-    clan_id: number;
-    clan_tag_name: string;
-    connect_time: number;
-    is_commander: boolean;
-    name: string;
-    on_team_time: number;
-    uid: number;
+export interface MonthlySnapshot {
+    timestamp: number;
+    online: number;
 }
 
-export interface DSPlayer extends DPlayer {
-    clan_tag_name: string;
-    connect_time: number;
-    is_commander: boolean;
-    on_team_time: number;
+export interface Activity {
+    period: string,
+    activities?: Array<ActivityUser>,
+    activity_map?: {
+        [key: string]: number
+    }
 }
 
-export interface DPlayer {
-    name: string;
-    uid: number;
-    clan_id: number;
-}
-
-export interface DSTeam {
-    players: Array<DSPlayer>;
-    race: string;
-    team_id: number;
-    team_name: string;
+export interface ActivityUser {
+    userId: number,
+    clanId?: number,
+    clanTag?: string,
+    displayName: string
 }
 
 export interface ExtendedGameResult extends GameResult {

@@ -15,6 +15,7 @@ import {getNewsByPage} from "../requests"
 import {LadderNews, LiveLadderWidget} from "../Ladder"
 import {useWindowDimensions} from "../utils"
 import {ROUTES} from "../utils/constants"
+import {HistoricalOnline} from "../Online";
 
 import './scss/styles-homepage.scss'
 
@@ -40,6 +41,7 @@ const HomePage = () => {
     const isRegistrationFinishedPath = Boolean(useRouteMatch(ROUTES.registrationFinished)?.isExact)
     const isAccountSettingsPath = Boolean(useRouteMatch(ROUTES.accountSettings)?.isExact)
     const isSetupServersPath = Boolean(useRouteMatch(ROUTES.setupServers)?.isExact)
+    const isOnlinePath = Boolean(useRouteMatch(ROUTES.online)?.isExact)
 
     useEffect(() => {
         if (isHomePath || page > 1) {
@@ -121,6 +123,7 @@ const HomePage = () => {
                                     {isRegistrationFinishedPath ? <Registration/> : null}
                                     {isAccountSettingsPath ? <Account/> : null}
                                     {isSetupServersPath ? <SetupServer/> : null}
+                                    {isOnlinePath ? <HistoricalOnline/> : null}
                                 </Container>
                             </Grid.Column>
                             <Grid.Column>

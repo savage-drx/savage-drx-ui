@@ -2,6 +2,8 @@ import {combineReducers} from 'redux'
 import {dailyOnlineReducer} from "./DailyOnlineReducer";
 import {gamesHistoryReducer} from "./GamesHistoryReducer";
 import {weeklyOnlineReducer} from "./WeeklyOnlineReducer";
+import {monthlyOnlineReducer} from "./MonthlyOnlineReducer";
+import {yearlyOnlineReducer} from "./YearlyOnlineReducer";
 import {gameHistoryStatsReducer} from "./GameHistoryStatsReducer";
 import {newsPageReducer} from "./NewsReducer";
 import {weeklyLaddersListReducer} from "./WeeklyLaddersListReducer";
@@ -14,6 +16,8 @@ export default combineReducers({
     dailyOnlineReducer,
     gamesHistoryReducer,
     weeklyOnlineReducer,
+    monthlyOnlineReducer,
+    yearlyOnlineReducer,
     gameHistoryStatsReducer,
     newsPageReducer,
     weeklyLaddersListReducer,

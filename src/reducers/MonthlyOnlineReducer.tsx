@@ -1,21 +1,21 @@
-import {WeeklySnapshot} from "../types";
+import {MonthlySnapshot} from "../types";
 
 const initialState = {
     nl: {
         timestamp: 0,
         ttl: 0,
-        data: Array<WeeklySnapshot>(),
+        data: Array<MonthlySnapshot>(),
     },
     us: {
         timestamp: 0,
         ttl: 0,
-        data: Array<WeeklySnapshot>(),
+        data: Array<MonthlySnapshot>(),
     },
 }
 
-export const weeklyOnlineReducer = (state = initialState, action: any) => {
+export const monthlyOnlineReducer = (state = initialState, action: any) => {
     switch (action.type) {
-        case 'SET_WEEKLY_ONLINE':
+        case 'SET_MONTHLY_ONLINE':
             return {...state, ...action.payload}
         default:
             return state;

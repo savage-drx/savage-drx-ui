@@ -24,12 +24,8 @@ export const getLiveServersInfo = () => {
     return axios.get(`${SERVER_URL}/stats/live`)
 }
 
-export const getWeeklyOnline = (server: string) => {
-    return axios.get(`${SERVER_URL}/stats/online/weekly?server=${server}`)
-}
-
-export const getDailyOnline = (server: string) => {
-    return axios.get(`${SERVER_URL}/stats/online/daily?server=${server}`)
+export const getOnline = (period: string) => {
+    return axios.get(`${J_SERVER}/v1/user/activity?period=${period}`)
 }
 
 export const getGameResults = (quantity: number) => {

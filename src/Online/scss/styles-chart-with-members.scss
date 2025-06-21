@@ -1,0 +1,50 @@
+.chart-with-members-wrapper {
+
+  .highcharts-background {
+    //fill: #2a2727;
+    //color: white;
+    //stroke: #a4edba;
+    //stroke-width: 2px;
+  }
+
+  .chart-with-members-highcharts-div {
+    border: 4px solid #b36529;
+    border-radius: 5px;
+    background-color: #D5D0CF;
+  }
+
+  .chart-with-members-wrapper-segment {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+    padding-bottom: 0 !important;
+    border: 0 !important;
+  }
+
+  .chart-with-members-highcharts {
+    //width: 20%;
+    //min-width: 300px;
+  }
+
+  .chart-with-members a img {
+    //width: 20px !important;
+    //height: 20px !important;
+    //border-radius: 8px !important;
+  }
+
+  .chart-with-members {
+    text-align: left;
+
+    a {
+      margin-bottom: 10px !important;
+      margin-left: 5px;
+      //padding-bottom: 10px !important;
+      color: black;
+      background-color: #6c9fcb !important;
+    }
+
+    a:hover {
+      background-color: #4d7a98 !important;
+    }
+  }
+}
+
