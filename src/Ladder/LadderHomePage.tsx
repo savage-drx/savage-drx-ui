@@ -26,14 +26,26 @@ export const LadderHomePage = () => {
     const [weeks, setWeeks] = useState([])
     const [selectedYear, setSelectedYear] = useState(current_year)
 
-    // Not automated part. Should be fixed or manually updated in the future
-    const years = [
-        {key: 2021, value: 2021, text: 2021},
-        {key: 2022, value: 2022, text: 2022},
-        {key: 2023, value: 2023, text: 2023},
-        {key: 2024, value: 2024, text: 2024},
-        {key: 2025, value: 2025, text: 2025}
-    ]
+    type YearOption = { key: number; value: number; text: number };
+
+    function buildYears(startYear = 2021): YearOption[] {
+        const currentYear = new Date().getFullYear();
+
+        return Array.from(
+            { length: currentYear - startYear + 1 },
+            (_, i) => {
+                const year = startYear + i;
+                return { key: year, value: year, text: year };
+            }
+        );
+    }
+
+    // 2021 → current year
+    const years = buildYears();
+
+    // Example
+    // const yearsFrom2023 = buildYears(2023);
+
 
     useEffect(() => {
         if (isCacheOutdated(weeklyLaddersListCache?.ttl, weeklyLaddersListCache?.timestamp)
