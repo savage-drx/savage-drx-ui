@@ -144,7 +144,7 @@ const drawInfo = (gameResult: ExtendedGameResult) => {
         {gameResult.game.teams['2'].players.length ? StatsInfoTable(gameResult.game.teams['2']) : null}
         {gameResult.game.teams['3'] ? StatsInfoTable(gameResult.game.teams['3']) : null}
         {gameResult.game.teams['4'] ? StatsInfoTable(gameResult.game.teams['4']) : null}
-        {gameResult.game.teams['0'].players.length ? StatsInfoTable(gameResult.game.teams['0']) : null}
+        {gameResult.game.teams['0'] ? StatsInfoTable(gameResult.game.teams['0']) : null}
     </div>
 }
 
