@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import {Route, Switch} from "react-router-dom"
+import {Redirect, Route, Switch} from "react-router-dom"
 import {shallowEqual, useDispatch, useSelector} from "react-redux";
 
 import Navigation from "../Navigation"
@@ -54,6 +54,10 @@ const App = () => {
             <Route exact path={ROUTES.about} component={About}/>
             <Route exact path={ROUTES.accountSettings} component={HomePage}/>
             <Route exact path={ROUTES.setupServers} component={HomePage}/>
+
+            <Route exact path={ROUTES.client}>
+                <Redirect to={ROUTES.downloads} />
+            </Route>
         </Switch>
     </div>
 }

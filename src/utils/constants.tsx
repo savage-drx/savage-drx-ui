@@ -22,6 +22,8 @@ export const ROUTES = {
     registrationFinished: "/auth/registration/success",
     accountSettings: "/account/settings",
     setupServers: "/user/servers",
+
+    client: "/client/drx"
 }
 
 export const CLAN_ICON_URL = '/icons/drx/'
