@@ -2,13 +2,13 @@ import React from "react"
 
 import {Grid, Header, Image, Segment, Table} from "semantic-ui-react"
 
-import './scss/styles-client.scss'
+import './scss/styles-downloads.scss'
 
 
-const Client = () => {
+const Downloads = () => {
 
-    return <div className={'csp-client-wrapper'}>
-        <Segment textAlign={"center"} className={'client-header-segment'}>
+    return <div className={'csp-downloads-wrapper'}>
+        <Segment textAlign={"center"} className={'downloads-header-segment'}>
             <Header as={'h4'} inverted>
                 Savage DRX
                 <Header.Subheader>
@@ -33,7 +33,11 @@ const Client = () => {
                            textAlign={"center"}>
                         <Table.Body>
                             <Table.Row>
-                                <Table.Cell textAlign={"left"} content={'Download #1'}/>
+                                <Table.Cell textAlign={"left"} content={'Type'}/>
+                                <Table.Cell textAlign={"left"} content={'Client'}/>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell textAlign={"left"} content={'Download'}/>
                                 <Table.Cell textAlign={"left"} content={
                                     <a href={'https://mega.nz/file/Vn5jVCIJ#RCOdDfjEZXSPPWP1s2TYYL6fGybRLSQHbkZTdohRLt0'}>
                                         drx_setup-1.4.2-cl_win_prod
@@ -49,6 +53,31 @@ const Client = () => {
                         </Table.Body>
                     </Table>
 
+                    <Table celled inverted compact
+                           size={"small"}
+                           className={'platform-table'}
+                           textAlign={"center"}>
+                        <Table.Body>
+                            <Table.Row>
+                                <Table.Cell textAlign={"left"} content={'Type'}/>
+                                <Table.Cell textAlign={"left"} content={'Dedicated Server'}/>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell textAlign={"left"} content={'Download'}/>
+                                <Table.Cell textAlign={"left"} content={
+                                    <a href={'https://mega.nz/file/Vn5jVCIJ#RCOdDfjEZXSPPWP1s2TYYL6fGybRLSQHbkZTdohRLt0'}>
+                                        drx_setup-1.5.4-sv_win_prod
+                                    </a>
+                                }/>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell textAlign={"left"} content={'Sha256'}/>
+                                <Table.Cell textAlign={"left"} content={
+                                    '8953fbd49e7c6ea29f6eaf7a709edb4024bd36c3756b1657c53c1a383af35455'
+                                }/>
+                            </Table.Row>
+                        </Table.Body>
+                    </Table>
                 </Segment>
             </Grid.Column>
             <Grid.Column textAlign={"left"}>
@@ -69,7 +98,7 @@ const Client = () => {
                             <Table.Row>
                                 <Table.Cell textAlign={"left"} width={"3"} content={'Type'}/>
                                 <Table.Cell textAlign={"left"} content={
-                                    '.deb package for Debian/Ubuntu/Mint/PoP! OS etc'
+                                    'Client .deb package for Debian/Ubuntu/Mint/PoP! OS etc'
                                 }/>
                             </Table.Row>
                             <Table.Row>
@@ -118,7 +147,7 @@ const Client = () => {
                             <Table.Row>
                                 <Table.Cell textAlign={"left"} width={"3"} content={'Type'}/>
                                 <Table.Cell textAlign={"left"} content={
-                                    'Flatpak bundle'
+                                    'Client Flatpak bundle'
                                 }/>
                             </Table.Row>
                             <Table.Row>
@@ -172,7 +201,7 @@ const Client = () => {
                             <Table.Row>
                                 <Table.Cell textAlign={"left"} width={"3"} content={'Type'}/>
                                 <Table.Cell textAlign={"left"} content={
-                                    'Standalone zip, I\'ll sort out the dependencies myself'
+                                    'Client Standalone zip, I\'ll sort out the dependencies myself'
                                 }/>
                             </Table.Row>
                             <Table.Row>
@@ -191,13 +220,31 @@ const Client = () => {
                             </Table.Row>
                         </Table.Body>
                     </Table>
+
+                    {/*Linux server*/}
+                    <Table celled inverted compact
+                           size={"small"}
+                           className={'platform-table'}
+                           textAlign={"center"}>
+                        <Table.Body>
+                            <Table.Row>
+                                <Table.Cell textAlign={"left"} width={"3"} content={'Type'}/>
+                                <Table.Cell textAlign={"left"} content={'Dedicated Server'}/>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell textAlign={"left"} content={'Download'}/>
+                                <Table.Cell textAlign={"left"} content={
+                                    <a href={'https://github.com/savage-drx/savage-drx-server-public'}>
+                                        https://github.com/savage-drx/savage-drx-server-public
+                                    </a>
+                                }/>
+                            </Table.Row>
+                        </Table.Body>
+                    </Table>
                 </Segment>
             </Grid.Column>
         </Grid>
         <Segment textAlign={"center"} className={'details-segment'}>
-            <div className={'details-div'}>
-                A list of the general improvements: tbd
-            </div>
             <div>
                 Ask for help in discord <span className={'discord-setup-questions'}>#setup-questions</span> channel
             </div>
@@ -205,4 +252,4 @@ const Client = () => {
     </div>
 }
 
-export default Client
+export default Downloads

@@ -14,7 +14,7 @@ export const ROUTES = {
     playerWeekly: "/player/:weekName/:id",
     servers: "/servers",
     server: "/servers/:server",
-    client: "/client/drx",
+    downloads: "/downloads",
     about: "/about",
     login: "/auth/login",
     registration: "/auth/registration",
@@ -25,6 +25,7 @@ export const ROUTES = {
 }
 
 export const CLAN_ICON_URL = '/icons/drx/'
+export const FILES_URL = '/files'
 export const ITEMS_ICON_URL = process.env.PUBLIC_URL + '/images/weapons/'
 
 export const LOCAL_STORAGE_TOKEN = 'remember-me'

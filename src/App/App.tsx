@@ -6,7 +6,7 @@ import Navigation from "../Navigation"
 import Player from "../Player"
 import Stats from "../Stats"
 import Server from '../Server'
-import Client from '../Client'
+import Downloads from '../Downloads'
 import About from '../About'
 import HomePage from "../HomePage/HomePage";
 import {GameHistoryStats, GamesHistory} from "../GamesHistory"
@@ -50,7 +50,7 @@ const App = () => {
             <Route exact path={ROUTES.player} component={Player}/>
             <Route exact path={ROUTES.playerWeekly} component={Player}/>
             <Route exact path={ROUTES.servers} component={Server}/>
-            <Route exact path={ROUTES.client} component={Client}/>
+            <Route exact path={ROUTES.downloads} component={Downloads}/>
             <Route exact path={ROUTES.about} component={About}/>
             <Route exact path={ROUTES.accountSettings} component={HomePage}/>
             <Route exact path={ROUTES.setupServers} component={HomePage}/>
