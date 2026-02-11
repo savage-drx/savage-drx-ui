@@ -14,7 +14,7 @@ export const ROUTES = {
     playerWeekly: "/player/:weekName/:id",
     servers: "/servers",
     server: "/servers/:server",
-    client: "/client/drx",
+    downloads: "/downloads",
     about: "/about",
     login: "/auth/login",
     registration: "/auth/registration",
@@ -125,4 +125,43 @@ const SSF_INFO_FIELDS = {
 export const getSsfInfoField = (field: string) => {
     // @ts-ignore
     return SSF_INFO_FIELDS[field]
+}
+
+const FILES_URL = '/files';
+export const FILES = {
+    WINDOWS_CLIENT: {
+        type: 'client',
+        fileTitle: 'savage-drx_setup-1.4.2-cl_win_prod.exe',
+        filePath: `${FILES_URL}/savage-drx_setup-1.4.2-cl_win_prod.exe`,
+        hash: '8953fbd49e7c6ea29f6eaf7a709edb4024bd36c3756b1657c53c1a383af35455'
+    },
+    WINDOWS_SERVER: {
+        type: 'dedicated server',
+        fileTitle: 'savage-drx_setup-1.5.4-sv_win_prod.zip',
+        filePath: `${FILES_URL}/savage-drx_setup-1.5.4-sv_win_prod.zip`,
+        hash: '5e49e97189155d987e8ca29bae18775f67889d0320cf22fcb70aab1acd1c519f'
+    },
+    LINUX_CLIENT_DEB: {
+        type: 'client .deb package for Debian/Ubuntu/Mint/PoP! OS etc',
+        fileTitle: 'savage-drx_2025.01.28-2.deb',
+        filePath: `${FILES_URL}/savage-drx_2025.01.28-2.deb`,
+        hash: 'dabb164c094f030d580f34e00605d73c355aa6e997408c2c85f276e566b109b5'
+    },
+    LINUX_CLIENT_FLATPAK: {
+        type: 'client Flatpak bundle',
+        fileTitle: 'savage-drx-x86_64-2025.01.28-2.flatpak',
+        filePath: `${FILES_URL}/savage-drx-x86_64-2025.01.28-2.flatpak`,
+        hash: '687edeed89f0ddedc138f29dab3504434c0c3acfd28df703883380632a8ae148'
+    },
+    LINUX_CLIENT_ZIP: {
+        type: 'client Standalone zip (I\'ll sort out the dependencies myself)',
+        fileTitle: 'savage-drx_2025.01.28-2.zip',
+        filePath: `${FILES_URL}/savage-drx_2025.01.28-2.zip`,
+        hash: '9517bd68f673e861fbca063a9c1a09e2ea436bacb82613de9128f4b7d51a9f00'
+    },
+    LINUX_SERVER: {
+        type: 'dedicated server',
+        fileTitle: 'https://github.com/savage-drx/savage-drx-server-public',
+        filePath: 'https://github.com/savage-drx/savage-drx-server-public'
+    },
 }

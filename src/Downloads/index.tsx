@@ -1,14 +1,16 @@
 import React from "react"
 
 import {Grid, Header, Image, Segment, Table} from "semantic-ui-react"
+import {FILES} from "../utils/constants";
 
-import './scss/styles-client.scss'
+
+import './scss/styles-downloads.scss'
 
 
-const Client = () => {
+const Downloads = () => {
 
-    return <div className={'csp-client-wrapper'}>
-        <Segment textAlign={"center"} className={'client-header-segment'}>
+    return <div className={'csp-downloads-wrapper'}>
+        <Segment textAlign={"center"} className={'downloads-header-segment'}>
             <Header as={'h4'} inverted>
                 Savage DRX
                 <Header.Subheader>
@@ -33,22 +35,47 @@ const Client = () => {
                            textAlign={"center"}>
                         <Table.Body>
                             <Table.Row>
-                                <Table.Cell textAlign={"left"} content={'Download #1'}/>
+                                <Table.Cell textAlign={"left"} content={'Type'}/>
+                                <Table.Cell textAlign={"left"} content={FILES.WINDOWS_CLIENT.type}/>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell textAlign={"left"} content={'Download'}/>
                                 <Table.Cell textAlign={"left"} content={
-                                    <a href={'https://mega.nz/file/Vn5jVCIJ#RCOdDfjEZXSPPWP1s2TYYL6fGybRLSQHbkZTdohRLt0'}>
-                                        drx_setup-1.4.2-cl_win_prod
+                                    <a href={FILES.WINDOWS_CLIENT.filePath}>
+                                        {FILES.WINDOWS_CLIENT.fileTitle}
                                     </a>
                                 }/>
                             </Table.Row>
                             <Table.Row>
                                 <Table.Cell textAlign={"left"} content={'Sha256'}/>
-                                <Table.Cell textAlign={"left"} content={
-                                    '8953fbd49e7c6ea29f6eaf7a709edb4024bd36c3756b1657c53c1a383af35455'
-                                }/>
+                                <Table.Cell textAlign={"left"} content={FILES.WINDOWS_CLIENT.hash}/>
                             </Table.Row>
                         </Table.Body>
                     </Table>
 
+                    <Table celled inverted compact
+                           size={"small"}
+                           className={'platform-table'}
+                           textAlign={"center"}>
+                        <Table.Body>
+                            <Table.Row>
+                                <Table.Cell textAlign={"left"} content={'Type'}/>
+                                <Table.Cell textAlign={"left"} content={FILES.WINDOWS_SERVER.type}/>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell textAlign={"left"} content={'Download'}/>
+                                <Table.Cell textAlign={"left"} content={
+                                    <a href={FILES.WINDOWS_SERVER.filePath}>
+                                        {FILES.WINDOWS_SERVER.fileTitle}
+                                    </a>
+                                }/>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell textAlign={"left"} content={'Sha256'}/>
+                                <Table.Cell textAlign={"left"} content={FILES.WINDOWS_SERVER.hash}/>
+                            </Table.Row>
+                        </Table.Body>
+                    </Table>
                 </Segment>
             </Grid.Column>
             <Grid.Column textAlign={"left"}>
@@ -68,23 +95,19 @@ const Client = () => {
                         <Table.Body>
                             <Table.Row>
                                 <Table.Cell textAlign={"left"} width={"3"} content={'Type'}/>
-                                <Table.Cell textAlign={"left"} content={
-                                    '.deb package for Debian/Ubuntu/Mint/PoP! OS etc'
-                                }/>
+                                <Table.Cell textAlign={"left"} content={FILES.LINUX_CLIENT_DEB.type}/>
                             </Table.Row>
                             <Table.Row>
                                 <Table.Cell textAlign={"left"} content={'Download'}/>
                                 <Table.Cell textAlign={"left"} content={
-                                    <a href={'https://mega.nz/file/M7xHkILB#oxqC9Uiu9xFQVVtNUttEnYun8cs9gmH1hezAN4P65Bo'}>
-                                        savage-drx_2025.01.28-2.deb
+                                    <a href={FILES.LINUX_CLIENT_DEB.filePath}>
+                                        {FILES.LINUX_CLIENT_DEB.fileTitle}
                                     </a>
                                 }/>
                             </Table.Row>
                             <Table.Row>
                                 <Table.Cell textAlign={"left"} content={'Sha256'}/>
-                                <Table.Cell textAlign={"left"} content={
-                                    'dabb164c094f030d580f34e00605d73c355aa6e997408c2c85f276e566b109b5'
-                                }/>
+                                <Table.Cell textAlign={"left"} content={FILES.LINUX_CLIENT_DEB.hash}/>
                             </Table.Row>
                             <Table.Row>
                                 <Table.Cell textAlign={"left"} content={'Install with'}/>
@@ -117,22 +140,20 @@ const Client = () => {
                         <Table.Body>
                             <Table.Row>
                                 <Table.Cell textAlign={"left"} width={"3"} content={'Type'}/>
-                                <Table.Cell textAlign={"left"} content={
-                                    'Flatpak bundle'
-                                }/>
+                                <Table.Cell textAlign={"left"} content={FILES.LINUX_CLIENT_FLATPAK.type}/>
                             </Table.Row>
                             <Table.Row>
                                 <Table.Cell textAlign={"left"} content={'Download'}/>
                                 <Table.Cell textAlign={"left"} content={
-                                    <a href={'https://mega.nz/file/BipikKaB#Y9rGMWKpB5G2GgRNY46KyETERDmLYnsNi1hm1yDJvW8'}>
-                                        savage-drx-x86_64-2025.01.28-2.flatpak
+                                    <a href={FILES.LINUX_CLIENT_FLATPAK.filePath}>
+                                        {FILES.LINUX_CLIENT_FLATPAK.fileTitle}
                                     </a>
                                 }/>
                             </Table.Row>
                             <Table.Row>
                                 <Table.Cell textAlign={"left"} content={'Sha256'}/>
                                 <Table.Cell textAlign={"left"} content={
-                                    '687edeed89f0ddedc138f29dab3504434c0c3acfd28df703883380632a8ae148'
+                                    FILES.LINUX_CLIENT_FLATPAK.hash
                                 }/>
                             </Table.Row>
                             <Table.Row>
@@ -171,22 +192,39 @@ const Client = () => {
                         <Table.Body>
                             <Table.Row>
                                 <Table.Cell textAlign={"left"} width={"3"} content={'Type'}/>
-                                <Table.Cell textAlign={"left"} content={
-                                    'Standalone zip, I\'ll sort out the dependencies myself'
-                                }/>
+                                <Table.Cell textAlign={"left"} content={FILES.LINUX_CLIENT_ZIP.type}/>
                             </Table.Row>
                             <Table.Row>
                                 <Table.Cell textAlign={"left"} content={'Download'}/>
                                 <Table.Cell textAlign={"left"} content={
-                                    <a href={'https://mega.nz/file/JjozRZaT#kdHsO5CciHAQSqVqrIZajWawiw3eiAS9AQPQzUk65qw'}>
-                                        savage-drx_2025.01.28-2.zip
+                                    <a href={FILES.LINUX_CLIENT_ZIP.filePath}>
+                                        {FILES.LINUX_CLIENT_ZIP.fileTitle}
                                     </a>
                                 }/>
                             </Table.Row>
                             <Table.Row>
                                 <Table.Cell textAlign={"left"} content={'Sha256'}/>
+                                <Table.Cell textAlign={"left"} content={FILES.LINUX_CLIENT_ZIP.hash}/>
+                            </Table.Row>
+                        </Table.Body>
+                    </Table>
+
+                    {/*Linux server*/}
+                    <Table celled inverted compact
+                           size={"small"}
+                           className={'platform-table'}
+                           textAlign={"center"}>
+                        <Table.Body>
+                            <Table.Row>
+                                <Table.Cell textAlign={"left"} width={"3"} content={'Type'}/>
+                                <Table.Cell textAlign={"left"} content={FILES.LINUX_SERVER.type}/>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell textAlign={"left"} content={'Download'}/>
                                 <Table.Cell textAlign={"left"} content={
-                                    '9517bd68f673e861fbca063a9c1a09e2ea436bacb82613de9128f4b7d51a9f00'
+                                    <a href={FILES.LINUX_SERVER.filePath}>
+                                        {FILES.LINUX_SERVER.fileTitle}
+                                    </a>
                                 }/>
                             </Table.Row>
                         </Table.Body>
@@ -195,9 +233,6 @@ const Client = () => {
             </Grid.Column>
         </Grid>
         <Segment textAlign={"center"} className={'details-segment'}>
-            <div className={'details-div'}>
-                A list of the general improvements: tbd
-            </div>
             <div>
                 Ask for help in discord <span className={'discord-setup-questions'}>#setup-questions</span> channel
             </div>
@@ -205,4 +240,4 @@ const Client = () => {
     </div>
 }
 
-export default Client
+export default Downloads

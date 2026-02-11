@@ -38,7 +38,7 @@ const Navigation = () => {
 
     const isOnlinePath = Boolean(location.pathname === ROUTES.online)
     const isServerPath = Boolean(location.pathname === ROUTES.servers)
-    const isClientPath = Boolean(location.pathname === ROUTES.client)
+    const isDownloadsPath = Boolean(location.pathname === ROUTES.downloads)
     const isAboutPath = Boolean(location.pathname === ROUTES.about)
 
     const activeColor = 'orange'
@@ -103,11 +103,11 @@ const Navigation = () => {
                 Servers
             </Menu.Item>
             <Menu.Item
-                name='client'
+                name='downloads'
                 as={Link}
-                to={ROUTES.client}
+                to={ROUTES.downloads}
                 color={null ? activeColor : inactiveColor}
-                active={isClientPath}>
+                active={isDownloadsPath}>
                 <Icon name='gamepad'/>
                 Downloads
             </Menu.Item>
