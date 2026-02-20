@@ -303,3 +303,45 @@ export const getMyTimeZone = () => {
     const offsetHours = dt.offset / 60;
     return `${zoneName}, UTC${offsetHours >= 0 ? '+' : ''}${offsetHours}`;
 }
+
+export const formatServerNameHtml = (serverName?: string | null): string => {
+    if (!serverName) return '';
+
+    const COLORS: Record<string, string> = {
+        b: 'blue',
+        c: 'cyan',
+        g: 'green',
+        k: 'black',
+        m: 'magenta',
+        r: 'red',
+        w: 'white',
+        y: 'yellow',
+    };
+
+    const RGB_MULTIPLIER = 11.1;
+
+    // Initial wrap in white
+    let result = `<span style="color: ${COLORS['w']}">${serverName}</span>`;
+
+    const convertRgbCodes = (match: string): string => {
+        const code = match.substring(1); // remove ^
+        const r = Math.round(parseInt(code[0]) * RGB_MULTIPLIER);
+        const g = Math.round(parseInt(code[1]) * RGB_MULTIPLIER);
+        const b = Math.round(parseInt(code[2]) * RGB_MULTIPLIER);
+
+        return `<span style="color: rgb(${r}% ${g}% ${b}%)">`;
+    };
+
+    const convertColorLetters = (match: string): string => {
+        const letter = match[1];
+        return `<span style="color: ${COLORS[letter]}">`;
+    };
+
+    result = result
+        .replace(/\^[0-9]{3}/g, convertRgbCodes)
+        .replace(/\^[bcgkmrwy]/g, convertColorLetters)
+        .replace(/<span/g, '</span><span');
+
+    // Equivalent to Python result[7:]
+    return result.substring(7);
+};

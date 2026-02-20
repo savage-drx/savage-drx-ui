@@ -8,14 +8,16 @@ export interface DiscordInfo {
 }
 
 export interface LiveServerInfo {
-    data: ServerInfo;
-    teams: {
-        0?: Team;
-        1?: Team;
-        2?: Team;
-        3?: Team;
-        4?: Team;
-    };
+    port: number;
+    description: string;
+    id: number;
+    updated: string;
+    host_name: string;
+    display_name: string;
+    max_player_count: number;
+    current_map: string;
+    current_player_count: number;
+    version: string;
 }
 
 export interface Team {

@@ -21,7 +21,7 @@ export const getDiscordServerInfo = () => {
 }
 
 export const getLiveServersInfo = () => {
-    return axios.get(`${SERVER_URL}/stats/live`)
+    return axios.get(`${J_SERVER}/v1/server/list/online`)
 }
 
 export const getOnline = (period: string) => {

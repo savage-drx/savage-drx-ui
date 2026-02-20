@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import {Button, Grid, Header, Icon, Label, Segment} from "semantic-ui-react";
 
 import {getLiveServersInfo} from "../requests";
+import {formatServerNameHtml} from "../utils";
 import {LiveProps, LiveServerInfo} from "../types";
 
 import './scss/styles-live-panel.scss';
@@ -53,7 +54,7 @@ export const LivePanel = ({background, serverProp}: LiveProps) => {
                         <Label className={'csp-label'} size={"small"} attached={"top right"}>
                             online
                             <Label.Detail>
-                                {liveServersInfo?.reduce((total: number, b: LiveServerInfo) => total + Number(b.data.cnum), 0)}
+                                {liveServersInfo?.reduce((total: number, b: LiveServerInfo) => total + Number(b.current_player_count), 0)}
                             </Label.Detail>
                         </Label>
                     </Header.Content>
@@ -62,17 +63,17 @@ export const LivePanel = ({background, serverProp}: LiveProps) => {
 
             <Segment className={'segment-servers'} style={{backgroundImage: `url(${background})`}}>
                 {liveServersInfo?.map((server, i) => (
-                    <Grid key={'grid' + i} className={server?.data?.ip === serverProp ? "selected-server" : ""}>
+                    <Grid key={'grid' + i} className={server.host_name + ":" + server.port === serverProp ? "selected-server" : ""}>
                         <Grid.Column key={'label' + i} width={"12"} textAlign={"left"} verticalAlign={"middle"}>
-                            <Label as={Link} to={'/servers/' + server?.data?.ip} image className={'server-label'}>
-                                <Icon name='game' color={"yellow"} className={'server-icon'}/> <span dangerouslySetInnerHTML={{__html: server?.data?.name}}/>
+                            <Label as={Link} to={'/servers/' + server.host_name + ":" + server.port} image className={'server-label'}>
+                                <Icon name='game' color={"yellow"} className={'server-icon'}/> <span dangerouslySetInnerHTML={{__html: formatServerNameHtml(server.display_name)}}/>
                             </Label>
                         </Grid.Column>
                         <Grid.Column key={'online' + i} width={"4"} textAlign={"right"} verticalAlign={"middle"}
                                      className={'online-column'}>
                             <Label color={"grey"} className={'online-label'}>
-                                <span className={'online-label-span-live'}>{server?.data?.cnum}</span>
-                                <span className={'online-label-span-max'}>/{server?.data?.cmax}</span>
+                                <span className={'online-label-span-live'}>{server.current_player_count}</span>
+                                <span className={'online-label-span-max'}>/{server.max_player_count}</span>
                             </Label>
                         </Grid.Column>
                     </Grid>
