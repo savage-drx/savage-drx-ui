@@ -4,7 +4,7 @@ import {Checkbox, Grid, Header, Icon, Image, Label, Table} from "semantic-ui-rea
 import BaseContainer from "../HomePage/BaseContainer";
 import {getA2sServerInfo} from "../requests";
 import {A2SPlayer, A2SResponse, LiveServerProps, SortedA2SPlayers} from "../types";
-import {capitalizeFirstLetter, formatA2SPlayer,} from "../utils";
+import {capitalizeFirstLetter, clearClansAndColors, formatA2SPlayer,} from "../utils";
 
 import './scss/styles-live-server.scss';
 
@@ -104,7 +104,7 @@ const LiveServer = ({address}: LiveServerProps) => {
             4: Array<A2SPlayer>()
         };
 
-        response.players.forEach((p) => {
+        response?.players?.forEach((p) => {
             const team = String(p.team)
             result[team].push(p)
         })
@@ -143,7 +143,7 @@ const LiveServer = ({address}: LiveServerProps) => {
             <Grid.Row>
                 <Grid.Column>
                     <Header as="h3">
-                        {response?.info?.server_name}
+                        {clearClansAndColors(response?.info?.server_name)}
                     </Header>
                 </Grid.Column>
             </Grid.Row>

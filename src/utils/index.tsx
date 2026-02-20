@@ -345,3 +345,17 @@ export const formatServerNameHtml = (serverName?: string | null): string => {
     // Equivalent to Python result[7:]
     return result.substring(7);
 };
+
+export function clearClansAndColors(body: string|undefined): string {
+    const replacement = "";
+
+    if (!body) {
+        return replacement
+    }
+
+    return body
+        .replace(/\^clan [0-9]{0,10}\^/g, replacement)
+        .replace(/\^[a-zA-Z]/g, replacement)
+        .replace(/\^[0-9]{3}/g, replacement)
+        .replace(/\[[A-Z]{0,3}\]/g, replacement);
+}

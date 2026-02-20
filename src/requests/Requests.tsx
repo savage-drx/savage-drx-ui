@@ -65,7 +65,7 @@ export const getLadderWeeks = (year: number) => {
 }
 
 export const getA2sServerInfo = (serverAddress: string) => {
-    return axios.get(`${SERVER_URL}/stats/server/${serverAddress}`)
+    return axios.get(`${J_SERVER}/v1/server/${serverAddress}/status`)
 }
 
 export const sendLoginRequest = (loginProps: LoginProps) => {
