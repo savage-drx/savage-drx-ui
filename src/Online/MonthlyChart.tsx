@@ -1,122 +1,64 @@
-import React, {useEffect, useState} from "react";
-import {shallowEqual, useDispatch, useSelector} from 'react-redux'
+import React from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 
-import {getOnline} from "../requests";
+import {useOnlineActivity} from "./useOnlineActivity";
 import {Segment} from "semantic-ui-react";
-import {convertDailyTSCodeToDateTime, getCurrentTimeSeconds, getMyTimeZone, isCacheOutdated} from "../utils";
 import {MONTHLY_CHART_TTL_SECONDS} from "../utils/constants";
-import {Activity} from "../types";
+import {createTimeZoneFormatter} from "../utils";
 
 import './scss/styles-chart-with-members.scss';
 
+export const MonthlyChart = ({tz}: { tz: string }) => {
 
-export const MonthlyChart = () => {
-
-    const dispatch = useDispatch()
-    const cache = useSelector((state: any) => state.monthlyOnlineReducer, shallowEqual);
-    const [activity, setActivity] = useState<Activity>();
-    const [chartData, setChartData] = useState<Array<any>>();
-
-    useEffect(() => {
-        if (isCacheOutdated(cache.ttl, cache.timestamp)) {
-            getOnline('MONTH').then(res => {
-                setActivity(res.data);
-                dispatch({
-                    type: 'SET_MONTHLY_ONLINE', payload:
-                        {
-                            timestamp: getCurrentTimeSeconds(),
-                            ttl: MONTHLY_CHART_TTL_SECONDS,
-                            data: res.data
-                        }
-                });
-            })
-        } else {
-            setActivity(cache.data)
+    const {chartData, serverTimezone} = useOnlineActivity(
+        'MONTH', tz,
+        {
+            ttl: MONTHLY_CHART_TTL_SECONDS,
+            dispatchType: 'SET_MONTHLY_ONLINE',
+            cacheSelector: (state: any) => state.monthlyOnlineReducer
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    );
 
-    useEffect(() => {
-        if (activity) {
-            const result: any = [];
-            if (activity.activity_map) {
-                Object.keys(activity.activity_map).forEach((key) => {
-                    if (activity.activity_map) {
-                        result.push(
-                            [
-                                convertDailyTSCodeToDateTime(key),
-                                activity.activity_map[key]
-                            ]
-                        )
-                    }
-                });
-            }
+    const displayTimezone = serverTimezone || tz;
 
-            setChartData(result);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [activity]);
+    const formatLabel = createTimeZoneFormatter('MONTH', displayTimezone);
 
     const options = {
         chart: {
             type: 'column',
             zoomType: 'x',
-            height: '350px',
-            // backgroundColor: '#D5D0CF'
+            height: '350px'
         },
         mapNavigation: {
             enableMouseWheelZoom: true
         },
         xAxis: {
             type: "datetime",
-
-            scrollbar: {
-                enabled: true
-            },
-
+            scrollbar: {enabled: true},
             labels: {
-                formatter: (f: any) => {
-                    return Highcharts.dateFormat('%b %e', f.value);
-                },
+                formatter: (f: any) => formatLabel(f.value),
                 rotation: -45
             },
         },
         yAxis: {
-            title: {
-                enabled: true,
-                text: 'Activity'
-            }
+            title: {enabled: true, text: 'Activity'}
         },
-        title: {
-            text: 'Month'
-
-        },
-        series: [
-            {
-                data: chartData,
-                name: `${getMyTimeZone()}`,
-                colors: [
-                    '#3d97b7'
-                ],
-                colorByPoint: true,
-            }
-        ],
-        credits: {
-            enabled: false
-        },
-
+        title: {text: 'Month'},
+        series: [{
+            data: chartData,
+            name: displayTimezone,
+            colors: ['#3d97b7'],
+            colorByPoint: true,
+        }],
+        credits: {enabled: false},
         plotOptions: {
             series: {
                 borderWidth: 0,
-                dataLabels: {
-                    enabled: true
-                }
+                dataLabels: {enabled: true}
             }
         }
     };
-
 
     return <div className={'chart-with-members-wrapper'}>
         <Segment className={"chart-with-members-wrapper-segment"}>
@@ -125,4 +67,4 @@ export const MonthlyChart = () => {
             </div>
         </Segment>
     </div>
-}
+};

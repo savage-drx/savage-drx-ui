@@ -24,8 +24,10 @@ export const getLiveServersInfo = () => {
     return axios.get(`${J_SERVER}/v1/server/list/online`)
 }
 
-export const getOnline = (period: string) => {
-    return axios.get(`${J_SERVER}/v1/user/activity?period=${period}`)
+export const getOnline = (period: string, tz?: string) => {
+    return axios.get(`${J_SERVER}/v1/user/activity`, {
+        params: { period, tz: tz || 'UTC' }
+    })
 }
 
 export const getGameResults = (quantity: number) => {

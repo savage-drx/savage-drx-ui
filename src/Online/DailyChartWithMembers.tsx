@@ -1,153 +1,86 @@
-import React, {useEffect, useState} from "react";
-import {shallowEqual, useDispatch, useSelector} from 'react-redux'
+import React from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 
-import {getOnline} from "../requests";
+import {useOnlineActivity} from "./useOnlineActivity";
 import {Label, Segment} from "semantic-ui-react";
-import {convertHourlyTSCodeToDateTime, getCurrentTimeSeconds, getMyTimeZone, isCacheOutdated} from "../utils";
 import {CLAN_ICON_URL, DAILY_CHART_TTL_SECONDS} from "../utils/constants";
-import {Activity} from "../types";
+import {createTimeZoneFormatter} from "../utils";
 
 import './scss/styles-chart-with-members.scss';
 
+export const DailyChartWithMembers = ({tz}: { tz: string }) => {
 
-export const DailyChartWithMembers = () => {
-
-    const dispatch = useDispatch()
-    const cache = useSelector((state: any) => state.dailyOnlineReducer, shallowEqual);
-    const [activity, setActivity] = useState<Activity>();
-    const [chartData, setChartData] = useState<Array<any>>();
-    const [total, setTotal] = useState<number>(0)
-
-    useEffect(() => {
-        if (isCacheOutdated(cache.ttl, cache.timestamp)) {
-            getOnline('DAY').then(res => {
-                setActivity(res.data);
-                dispatch({
-                    type: 'SET_DAILY_ONLINE', payload:
-                        {
-                            timestamp: getCurrentTimeSeconds(),
-                            ttl: DAILY_CHART_TTL_SECONDS,
-                            data: res.data
-                        }
-                });
-            })
-        } else {
-            setActivity(cache.data)
+    const {chartData, serverTimezone, total, activeUsers} = useOnlineActivity(
+        'DAY', tz,
+        {
+            ttl: DAILY_CHART_TTL_SECONDS,
+            dispatchType: 'SET_DAILY_ONLINE',
+            cacheSelector: (state: any) => state.dailyOnlineReducer
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    );
 
-    useEffect(() => {
-        if (activity) {
-            const result: any = [];
-            if (activity.activity_map) {
-                Object.keys(activity.activity_map).forEach((key) => {
-                    if (activity.activity_map) {
-                        result.push(
-                            [
-                                convertHourlyTSCodeToDateTime(key),
-                                activity.activity_map[key]
-                            ]
-                        )
-                    }
-                });
-            }
+    const displayTimezone = serverTimezone || tz;
 
-            if (cache.data?.activities) {
-                setTotal(cache.data?.activities.length)
-            }
-
-            setChartData(result);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [activity]);
+    const formatLabel = createTimeZoneFormatter('DAY', displayTimezone);
 
     const options = {
         chart: {
             type: 'column',
             zoomType: 'x',
-            height: '350px',
-            // backgroundColor: '#D5D0CF'
+            height: '350px'
         },
         mapNavigation: {
             enableMouseWheelZoom: true
         },
         xAxis: {
             type: "datetime",
-
-            scrollbar: {
-                enabled: true
-            },
-
+            scrollbar: {enabled: true},
             labels: {
-                formatter: (f: any) => {
-                    return Highcharts.dateFormat('%H:00', f.value);
-                    // return Highcharts.dateFormat('%a %d - %H:00', f.value);
-                },
+                formatter: (f: any) => formatLabel(f.value),
                 rotation: -45
             },
         },
         yAxis: {
-            title: {
-                enabled: true,
-                text: 'Activity'
-            },
-            // gridLineColor: '#9c9c9c',
+            title: {enabled: true, text: 'Activity'}
         },
-        title: {
-            text: 'Last 24h'
-
-        },
-        series: [
-            {
-                // type: 'area',
-                data: chartData,
-                name: `${getMyTimeZone()}`,
-                colors: [
-                    '#3d97b7'
-                ],
-                colorByPoint: true,
-            }
-        ],
-        credits: {
-            enabled: false
-        },
-
+        title: {text: 'Last 24h'},
+        series: [{
+            data: chartData,
+            name: displayTimezone,
+            colors: ['#3d97b7'],
+            colorByPoint: true,
+        }],
+        credits: {enabled: false},
         plotOptions: {
             series: {
                 borderWidth: 0,
-                dataLabels: {
-                    enabled: true
-                }
+                dataLabels: {enabled: true}
             }
         }
     };
 
     const getMembers = () => {
-        if (activity?.activities?.length === 0) {
+        if (!activeUsers || activeUsers.length === 0) {
             return null;
         }
 
         return <div className={"chart-with-members"}>
             <br/>
             {
-                activity?.activities?.map((p, index) => (
-                    <Label as='a' image href={'/player/' + p.userId} key={"daily-" + index}>
+                activeUsers.map((p, index) => (
+                    <Label as='a' image href={'/player/' + p.user_id} key={"daily-" + index}>
                         {
-                            p.clanId
-                                ? <img src={CLAN_ICON_URL + p.clanId + '.png'} alt={''}/>
+                            p.clan_id
+                                ? <img src={CLAN_ICON_URL + p.clan_id + '.png'} alt={''}/>
                                 : null
                         }
-                        {
-                            p.displayName
-                        }
+                        {p.display_name}
                     </Label>
                 ))
             }
         </div>
-    }
+    };
 
     return <div className={'chart-with-members-wrapper'}>
         <Segment className={"chart-with-members-wrapper-segment"}>
@@ -159,12 +92,7 @@ export const DailyChartWithMembers = () => {
                 <HighchartsReact highcharts={Highcharts} options={options} className={'chart-with-members-highcharts'}/>
             </div>
 
-            {
-                total > 0
-                    ? getMembers()
-                    : null
-            }
-
+            {total > 0 ? getMembers() : null}
         </Segment>
     </div>
-}
+};

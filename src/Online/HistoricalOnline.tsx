@@ -1,27 +1,33 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import BaseContainer from "../HomePage/BaseContainer";
 import {DailyChartWithMembers} from "./DailyChartWithMembers";
 import {WeeklyChartWithMembers} from "./WeeklyChartWithMembers";
 import {MonthlyChart} from "./MonthlyChart";
-
+import {YearlyChart} from "./YearlyChart";
+import {TimezoneSelector} from "./TimezoneSelector";
+import {getMyTimezoneIANA} from "../utils";
 
 import './scss/styles-historical-online.scss';
-import {YearlyChart} from "./YearlyChart";
-
 
 export const HistoricalOnline = () => {
 
+    const [tz, setTz] = useState(getMyTimezoneIANA());
+
     const getForm = () => {
         return <div className={'online-wrapper'}>
-            <DailyChartWithMembers/>
+            <TimezoneSelector
+                timezone={tz}
+                onTimezoneChange={setTz}
+            />
+            <DailyChartWithMembers tz={tz}/>
             <br/>
             <br/>
-            <WeeklyChartWithMembers/>
+            <WeeklyChartWithMembers tz={tz}/>
             <br/>
-            <MonthlyChart/>
+            <MonthlyChart tz={tz}/>
             <br/>
-            <YearlyChart/>
+            <YearlyChart tz={tz}/>
         </div>
     }
 

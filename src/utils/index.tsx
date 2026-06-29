@@ -258,43 +258,8 @@ export const hasRole = (token: BearerToken, roleName: string) => {
     return token?.roles?.includes(roleName);
 }
 
-export const convertHourlyTSCodeToDateTime = (code: string) => {
-    const year = parseInt(code.slice(0, 4));
-    const month = parseInt(code.slice(4, 6)) - 1;
-    const day = parseInt(code.slice(6, 8));
-    const hour = parseInt(code.slice(8, 10));
-
-    const simpleDate = new Date(year, month, day, hour, 0, 0);
-    simpleDate.setHours(simpleDate.getHours() + (isDST() ? 3 : 2));
-
-    const now = DateTime.now();
-    const timezoneOffset = now.offset * 60 * 1000;
-    return simpleDate.getTime() + timezoneOffset;
-}
-
-export const isDST = () => {
-    const now = DateTime.now().setZone("Europe/Kyiv");
-    return now.isInDST;
-}
-
-
-export const convertDailyTSCodeToDateTime = (code: string) => {
-    const year = parseInt(code.slice(0, 4));
-    const month = parseInt(code.slice(4, 6)) - 1;
-    const day = parseInt(code.slice(6, 8));
-
-    const simpleDate = new Date(year, month, day, 0, 0, 0);
-
-    return simpleDate.getTime();
-}
-
-export const convertMonthlyTSCodeToDateTime = (code: string) => {
-    const year = parseInt(code.slice(0, 4));
-    const month = parseInt(code.slice(4, 6)) - 1;
-
-    const simpleDate = new Date(year, month, 0, 0, 0, 0);
-
-    return simpleDate.getTime();
+export const getMyTimezoneIANA = () => {
+    return DateTime.local().zoneName;
 }
 
 export const getMyTimeZone = () => {
@@ -303,6 +268,32 @@ export const getMyTimeZone = () => {
     const offsetHours = dt.offset / 60;
     return `${zoneName}, UTC${offsetHours >= 0 ? '+' : ''}${offsetHours}`;
 }
+
+export const createTimeZoneFormatter = (period: string, timezone: string) => {
+    const options: Intl.DateTimeFormatOptions = {
+        timeZone: timezone,
+    };
+    switch (period) {
+        case 'DAY':
+            options.hour = '2-digit';
+            options.timeZoneName = 'short';
+            break;
+        case 'WEEK':
+            options.weekday = 'short';
+            options.day = 'numeric';
+            break;
+        case 'MONTH':
+            options.month = 'short';
+            options.day = 'numeric';
+            break;
+        case 'YEAR':
+            options.year = 'numeric';
+            options.month = 'short';
+            break;
+    }
+    const formatter = new Intl.DateTimeFormat('en', options);
+    return (timestamp: number) => formatter.format(new Date(timestamp));
+};
 
 export const formatServerNameHtml = (serverName?: string | null): string => {
     if (!serverName) return '';

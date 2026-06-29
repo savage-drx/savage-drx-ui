@@ -82,17 +82,19 @@ export interface MonthlySnapshot {
 
 export interface Activity {
     period: string,
-    activities?: Array<ActivityUser>,
+    timezone: string,
+    total_active_users: number,
+    active_users?: Array<ActivityUser>,
     activity_map?: {
         [key: string]: number
     }
 }
 
 export interface ActivityUser {
-    userId: number,
-    clanId?: number,
-    clanTag?: string,
-    displayName: string
+    user_id: number,
+    display_name: string,
+    clan_id?: number,
+    clan_tag?: string
 }
 
 export interface ExtendedGameResult extends GameResult {
