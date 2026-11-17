@@ -1,3 +1,13 @@
+This is a deprecated project and is no longer maintained.
+A new repository has been moved to https://github.com/savage-drx/savage-drx-nextjs
+for any questions check the discord: https://discord.com/invite/gMXqMA7 @drk
+
+
+
+
+
+
+
 # Getting Started with Create React Index
 
 This project was bootstrapped with [Create React Index](https://github.com/facebook/create-react-app).
